@@ -1,0 +1,25 @@
+{
+  "name": "js-logging-library",
+  "version": "1.0.0",
+  "description": "A robust and easy-to-use logging library for JavaScript applications.",
+  "main": "logger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jkindrix/js-logging-library.git"
+  },
+  "keywords": [
+    "logging",
+    "library",
+    "javascript",
+    "debugging"
+  ],
+  "author": "Justin Kindrix",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jkindrix/js-logging-library/issues"
+  },
+  "homepage": "https://github.com/jkindrix/js-logging-library#readme"
+}
