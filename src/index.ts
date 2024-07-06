@@ -19,21 +19,21 @@
  * 
  * @enum {string}
  */
-const LogLevel = {
-    INFO: 'INFO',
-    WARN: 'WARN',
-    ERROR: 'ERROR',
-    DEBUG: 'DEBUG'
-};
+enum LogLevel {
+    INFO = 'INFO',
+    WARN = 'WARN',
+    ERROR = 'ERROR',
+    DEBUG = 'DEBUG'
+}
 
 /**
  * Log a message with the specified level and additional contextual information.
  * 
- * @param {string} level - The level of the log (INFO, WARN, ERROR, DEBUG).
+ * @param {LogLevel} level - The level of the log (INFO, WARN, ERROR, DEBUG).
  * @param {string} message - The log message.
- * @param {Object} [context={}] - Additional context to be logged (e.g., function name, variables, etc.).
+ * @param {Record<string, any>} [context={}] - Additional context to be logged (e.g., function name, variables, etc.).
  */
-function log(level, message, context = {}) {
+function log(level: LogLevel, message: string, context: Record<string, any> = {}): void {
     try {
         // Validate log level
         if (!Object.values(LogLevel).includes(level)) {
@@ -49,23 +49,23 @@ function log(level, message, context = {}) {
             context
         };
 
-        // Output the log entry to the console
-        switch (level) {
-            case LogLevel.INFO:
-                console.info(JSON.stringify(logEntry, null, 2));
-                break;
-            case LogLevel.WARN:
-                console.warn(JSON.stringify(logEntry, null, 2));
-                break;
-            case LogLevel.ERROR:
-                console.error(JSON.stringify(logEntry, null, 2));
-                break;
-            case LogLevel.DEBUG:
-                console.debug(JSON.stringify(logEntry, null, 2));
-                break;
-        }
+        // Log entry stringified for structured logging
+        const logOutput = JSON.stringify(logEntry, null, 2);
+
+        // Output the log entry to the console based on level
+        const logMethod = {
+            [LogLevel.INFO]: console.info,
+            [LogLevel.WARN]: console.warn,
+            [LogLevel.ERROR]: console.error,
+            [LogLevel.DEBUG]: console.debug
+        }[level];
+
+        logMethod(logOutput);
+
     } catch (error) {
-        console.error(`Logging failed: ${error.message}`);
+        // Assert that error is of type Error
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error(`Logging failed: ${errorMessage}`);
     }
 }
 
